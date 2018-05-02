@@ -9,8 +9,7 @@
   <mat-form-field *ngIf="task.family == 'child'" class="newTask">
     <input matInput [min]="today" [(ngModel)]="data.dates" [satDatepicker]="resultPicker" placeholder="Dátumy" required>
     <sat-datepicker-toggle matSuffix [for]="resultPicker"></sat-datepicker-toggle>
-    <sat-datepicker #resultPicker [rangeMode]="true"></sat-datepicker>
-    <mat-hint>Napr.: 12/1/2005 - 12/2/2005 => Mesiac/Den/Rok</mat-hint>
+p    <mat-hint>Napr.: 12/1/2005 - 12/2/2005 => Mesiac/Den/Rok</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="newTask">

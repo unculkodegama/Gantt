@@ -595,7 +595,6 @@ export class GanttComponentService {
         }
 
         if (task.percentCompleted > 100 - percentToComplete && date.getTime <= endTask.getTime) {
-          console.log('fffsfds');
           this.updatePercentTask(null, 100 - percentToComplete, task);
         }
       }
