@@ -1,0 +1,41 @@
+.gantt_bars_line {
+  position: absolute;
+  box-sizing: border-box;
+  background-color: rgb(18, 195, 244);
+  border: 1px solid #2196F3;
+  -webkit-user-select: none;
+  margin-left: -5px;
+}
+
+.gantt_bars_progress {
+  text-align: center;
+  z-index: 0;
+  background: #2196F3;
+  position: absolute;
+  min-height: 18px;
+  display: block;
+  height: 18px;
+}
+
+.gantt_bars_content {
+  font-size: 15px;
+  color: #fff;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  white-space: nowrap;
+  text-align: center;
+  line-height: inherit;
+  overflow: hidden;
+  height: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+

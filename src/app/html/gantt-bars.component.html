@@ -1,0 +1,19 @@
+<div [ngStyle]="{ 'height': containerHeight + 'px', 'width': containerWidth + 'px' }">
+  <ng-container *ngFor="let task of parentTasks; let i = index">
+    <div #bar class="gantt_bars_line" [ngStyle]="drawBar(task, i)">
+      <div class="gantt_bars_progress" [ngStyle]="drawProgress(task, bar)"></div>
+      <div class="gantt_bars_content">{{task.percentCompleted}} %</div>
+    </div>
+
+    <div *ngIf="task.show == false">
+    <ng-container *ngFor="let taskChild of parentTasks[i].tasks;">
+      <div #bar class="gantt_bars_line" [ngStyle]="drawBar(taskChild, i)">
+        <div class="gantt_bars_progress" [ngStyle]="drawProgress(taskChild, bar)"></div>
+        <div class="gantt_bars_content">{{taskChild.percentCompleted}} %</div>
+      </div>
+    </ng-container>
+    </div>
+
+  </ng-container>
+
+</div>

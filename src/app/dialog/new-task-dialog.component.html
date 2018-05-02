@@ -1,0 +1,31 @@
+<h1 mat-dialog-title id="title">Nová úloha</h1>
+<div mat-dialog-content>
+
+  <mat-form-field class="newTask">
+    <input matInput #nameInput maxlength="25" [(ngModel)]="data.name" placeholder="Názov úlohy" required>
+    <mat-hint align="end">{{nameInput.value?.length || 0}} / 25</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="newTask">
+  <textarea matInput #descInput maxlength="150" [(ngModel)]="data.description" placeholder="Popis úlohy"
+            matTextareaAutosize matAutosizeMinRows="1"
+            matAutosizeMaxRows="6"></textarea>
+    <mat-hint align="end">{{descInput.value?.length || 0}} / 150</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="newTask">
+    <mat-select placeholder="Vyberte farbu:" [(ngModel)]="data.colour" [formControl]="colorControl" required>
+      <mat-option>--</mat-option>
+      <mat-option *ngFor="let color of colors" [value]="color">
+        {{color.nameSk}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="colorControl.hasError('required')">Prosím, vyberte farbu.</mat-error>
+  </mat-form-field>
+
+</div>
+
+<div mat-dialog-actionsclass="button">
+  <button mat-raised-button (click)="onNoClick()">Zrušiť</button>
+  <button type="submit" [disabled]="(data.name == null || data.colour == null)" mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Vytvoriť</button>
+</div>

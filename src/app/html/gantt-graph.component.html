@@ -1,0 +1,123 @@
+<div style="overflow-x: hidden">
+  <div class="actions_bar">
+    <div class='left_buttons'>
+      <button (click)="openNewTaskDialog()" class="btn btn-primary">Nová úloha</button>
+    </div>
+
+    <div class="zoom_buttons">
+      <button aria-label="ZoomInOut" class="zoom" (click)="zoomTasks()">
+        <mat-icon svgIcon="{{setZoomIcon()}}" aria-hidden="true"></mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="grid"
+       [ngStyle]="{ 'height': ganttGraphHeight, 'width': ganttComponentService.gridWidth + 'px'}">
+
+    <div class="grid_header" #ganttGrid [ngStyle]="setGridScaleStyle()">
+      <div class="grid_head_cell" *ngFor="let column of gridColumns" [style.width]="column.width + 'px'"
+           [style.left]="column.left + 'px'">
+        <label>{{column.name}} <span *ngIf="column.name === 'Trvanie'" style="font-weight:bold"> {{ ganttComponentService.calculateTotalDuration(parentTasks) }} </span></label>
+      </div>
+    </div>
+
+    <div [dragula]="parent" [dragulaModel]='parentTasks' class="grid_data" #ganttGridData [ngStyle]="{ 'height': calculateTasksHeight()}">
+
+      <ng-container *ngFor="let task of parentTasks; let i = index" >
+        <div   style="border-bottom: 1px black double">
+          <div #row class="grid_row" [ngStyle]="setGridRowStyle(true)">
+
+            <div class="grid_cell_add"
+                 [ngStyle]="{ 'width': gridColumns[0].width + 'px' }">
+              <div id="show" (click)="setShowLevel(i)">
+                <mat-icon svgIcon="{{toggle[i] ? 'right': 'down'}}" aria-hidden="true"></mat-icon>
+              </div>
+            </div>
+
+            <div class="grid_cell" (click)="openUpdateTaskDialog(task)"
+                 [ngStyle]="{ 'width': gridColumns[1].width + 'px' }">
+              <div style="padding-left: 10px">{{task.name}}</div>
+            </div>
+
+            <div class="grid_cell" (click)="openUpdateTaskDialog(task)"
+                 [ngStyle]=" { 'width': gridColumns[2].width + 'px' }">
+              <div style="padding-left: 12px">{{ task.percentCompleted }}</div>
+            </div>
+
+            <div class="grid_cell" (click)="openUpdateTaskDialog(task)"
+                 [ngStyle]="{ 'width': gridColumns[3].width + 'px' }">
+              <div style="padding-left: 20px"> {{ ganttComponentService.calculateParentDuration(task.tasks) }}</div>
+            </div>
+
+            <div class="grid_cell_add" [ngStyle]="{ 'width': gridColumns[4].width + 'px' }">
+              <div *ngIf="task.family == 'parent'" style="padding-left: 10px">
+                <mat-icon (click)="openNewSubTaskDialog(task)" id="add" svgIcon="add" aria-hidden="true"></mat-icon>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="task.show == false">
+          <ng-container *ngFor="let taskChild of parentTasks[i].tasks">
+            <div #row class="grid_row" [ngStyle]="setGridRowStyle(false)">
+              <div class="grid_cell_add"
+                   [ngStyle]="{ 'width': gridColumns[0].width + 'px' }">
+                <div style="padding-left: 2px; font-weight: bolder;"></div>
+              </div>
+
+              <div class="grid_cell" (click)="openUpdateTaskDialog(taskChild)"
+                   [ngStyle]="{ 'width': gridColumns[1].width + 'px' }">
+                <div style="padding-left: 10px">{{taskChild.name}}</div>
+              </div>
+
+              <div class="grid_cell" (click)="openUpdateTaskDialog(taskChild)"
+                   [ngStyle]=" { 'width': gridColumns[2].width + 'px' }">
+                <div style="padding-left: 12px">{{ taskChild.percentCompleted }}</div>
+              </div>
+
+              <div class="grid_cell" (click)="openUpdateTaskDialog(taskChild)"
+                   [ngStyle]="{ 'width': gridColumns[3].width + 'px' }">
+                <div style="padding-left: 25px"> {{ ganttComponentService.calculateChildDuration(taskChild) }}</div>
+              </div>
+
+              <div class="grid_cell_add" (click)="openUpdateTaskDialog(taskChild)" [ngStyle]="{ 'width': gridColumns[4].width + 'px' }">
+                <div style="padding-left: 10px">
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="gantt_graph" (window:resize)="onResize($event)"
+       [ngStyle]="{ 'height': ganttGraphHeight, 'width': ganttGraphWidth + 'px'}">
+
+    <time-range [zoom]="zoom" [zoomLevel]="zoomLevel" [timeRange]="ganttComponentService.TIME_RANGE"
+                [dimensions]="dimensions"></time-range>
+
+    <div class="gantt_graph_field" #ganttGraphArea
+         [ngStyle]="{ 'height': calculateTasksHeightField(), 'width': containerWidth + 'px'}">
+
+      <graph-cells [zoom]="zoom" [zoomLevel]="zoomLevel" [timeRange]="ganttComponentService.TIME_RANGE"
+                   [tasks]="tasks"></graph-cells>
+
+
+      <graph-bars [zoom]="zoom" [zoomLevel]="zoomLevel" [timeRange]="ganttComponentService.TIME_RANGE"
+                  [dimensions]="dimensions"
+                  [parentTasks]="parentTasks"></graph-bars>
+    </div>
+  </div>
+
+  <div class="gantt_vertical_scroll" #verticalScroll
+       (scroll)="onVerticalScroll(verticalScroll, ganttGridData, ganttGraphArea)" [ngStyle]="{'display': 'block'}">
+    <div [ngStyle]="{ 'height':calculateTasksHeight() }"></div>
+  </div>
+
+</div>
+
+
+
+
+

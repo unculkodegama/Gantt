@@ -1,0 +1,5 @@
+<div class="time_range" [ngStyle]="setTimeRangeStyle()">
+  <div class="time_range_line" [ngStyle]="setTimeRangeLineStyle()">
+    <div class="time_range_cell" *ngFor="let date of timeRange" [ngStyle]="setTimeRangeCellStyle()" [ngClass]="(isDayWeekend(date))">{{date | date: setDateLengthPipe()}}</div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<h1 mat-dialog-title id="title">Nová podúloha pre: <h3 id="subtitle">{{parentName}}</h3></h1>
+<div mat-dialog-content>
+  <mat-form-field class="newTask">
+    <input matInput #nameInput maxlength="25" [(ngModel)]="data.name" placeholder="Názov úlohy" required>
+    <mat-hint align="end">{{nameInput.value?.length || 0}} / 25</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="newTask">
+    <input matInput [min]="today" [(ngModel)]="data.dates" [satDatepicker]="resultPicker" placeholder="Dátumy"
+           required>
+    <sat-datepicker-toggle matSuffix [for]="resultPicker"></sat-datepicker-toggle>
+    <sat-datepicker #resultPicker [rangeMode]="true"></sat-datepicker>
+    <mat-hint>Napr.: 12/1/2005 - 12/2/2005 => Mesiac/Den/Rok</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="newTask">
+  <textarea matInput #descInput maxlength="150" [(ngModel)]="data.description" placeholder="Popis úlohy"
+            matTextareaAutosize matAutosizeMinRows="1"
+            matAutosizeMaxRows="6"></textarea>
+    <mat-hint align="end">{{descInput.value?.length || 0}} / 150</mat-hint>
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actionsclass="button">
+  <button mat-raised-button (click)="onNoClick()">Zrušiť</button>
+  <button mat-raised-button [disabled]="(data.name == null || data.dates == null)" [mat-dialog-close]="data" cdkFocusInitial>Vytvoriť</button>
+</div>

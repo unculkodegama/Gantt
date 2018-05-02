@@ -1,0 +1,33 @@
+.weekend {
+  background-color: rgb(184, 200, 201);
+}
+
+.time_range {
+  font-size: 14px;
+  border-bottom: 1px solid #777777;
+  background-color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.time_range_line {
+  box-sizing: border-box;
+}
+
+.time_range_line:first-child {
+  border-top: none;
+}
+
+.time_range_cell {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 1px solid #777777;
+  text-align: center;
+  height: 100%;
+}
+
+.today {
+  background-color: rgb(162, 161, 191);
+}

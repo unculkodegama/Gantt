@@ -1,0 +1,25 @@
+.newTask {
+  width: 550px;
+  font-size: 25px;
+  color: rgb(188, 137, 207);
+
+}
+
+#title {
+  font-size: 30px;
+  color: rgb(188, 137, 207);
+  margin-bottom: 5px !important;
+  padding-bottom: 0;
+}
+
+.button {
+  font-family: 'Lato', sans-serif !important;
+}
+
+#subTitle {
+  margin-top: 0;
+  padding-top: 0;
+  font-size: 20px;
+  color: rgb(153, 114, 170);
+  font-weight: bold;
+}

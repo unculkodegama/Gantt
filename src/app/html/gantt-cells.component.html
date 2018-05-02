@@ -1,0 +1,5 @@
+<div #bg class="gantt_graph_background">
+  <div class="gantt_graph_row" [ngStyle]="setRowStyle()" *ngFor="let row of iterable">
+    <div class="gantt_graph_cell" [ngStyle]="setCellStyle()" *ngFor="let cell of cells; let l = last" [ngClass]="[(isDayWeekend(cell)), l ? 'last_column_cell' : '']"></div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+.gantt_graph_background {
+  overflow: hidden;
+}
+
+.gantt_graph_row {
+  border-bottom: 1px solid #a8a8a8;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.gantt_graph_cell {
+  display: inline-block;
+  height: 100%;
+  border-right: 1px solid #a8a8a8;
+}
+
+.weekend {
+  background-color: rgb(217, 233, 234);
+}
+
+.today {
+  background-color: rgb(193, 194, 210);
+}
