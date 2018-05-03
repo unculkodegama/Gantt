@@ -36,6 +36,7 @@ export class UpdateTaskDialog {
   }
 
   returnName(): string {
+
     if (this.data.parentName.length == 0) {
       return null;
     } else {

@@ -9,7 +9,8 @@
   <mat-form-field *ngIf="task.family == 'child'" class="newTask">
     <input matInput [min]="today" [(ngModel)]="data.dates" [satDatepicker]="resultPicker" placeholder="Dátumy" required>
     <sat-datepicker-toggle matSuffix [for]="resultPicker"></sat-datepicker-toggle>
-p    <mat-hint>Napr.: 12/1/2005 - 12/2/2005 => Mesiac/Den/Rok</mat-hint>
+    <sat-datepicker #resultPicker [rangeMode]="true"></sat-datepicker>
+    <mat-hint>Napr.: 12/1/2005 - 12/2/2005 => Mesiac/Den/Rok</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="newTask">
@@ -20,9 +21,10 @@ p    <mat-hint>Napr.: 12/1/2005 - 12/2/2005 => Mesiac/Den/Rok</mat-hint>
   </mat-form-field>
 
   <mat-form-field *ngIf="task.family == 'parent'" class="newTask">
-    <mat-select placeholder="Vyberte farbu:" [(value)]="data.colour" [(ngModel)]="data.colour" [formControl]="colorControl" required>
+    <mat-select placeholder="Vyberte farbu:" [(value)]="data.colour" [(ngModel)]="data.colour"
+                [formControl]="colorControl" required>
       <mat-option>--</mat-option>
-      <mat-option *ngFor="let color of colors"  [value]="color.name">
+      <mat-option *ngFor="let color of colors" [value]="color.name">
         {{color.nameSk}}
       </mat-option>
     </mat-select>
@@ -33,8 +35,12 @@ p    <mat-hint>Napr.: 12/1/2005 - 12/2/2005 => Mesiac/Den/Rok</mat-hint>
 <div mat-dialog-actionsclass="button" style="margin-top: 10px">
   <button mat-raised-button (click)="onNoClick()">Zrušiť</button>
 
-  <button type="submit" *ngIf="task.family == 'parent'" [disabled]="(data.name.length == 0 || data.colour == null)" mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Upraviť</button>
-  <button type="submit" *ngIf="task.family == 'child'" [disabled]="(data.name.length == 0 || data.dates == null)" mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Upraviť</button>
+  <button type="submit" *ngIf="task.family == 'parent'" [disabled]="(data.name.length == 0 || data.colour == null)"
+          mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Upraviť
+  </button>
+  <button type="submit" *ngIf="task.family == 'child'" [disabled]="(data.name.length == 0 || data.dates == null)"
+          mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Upraviť
+  </button>
 
   <button style="float: right" mat-raised-button (click)="deleteTask(data.id)">Zmazať</button>
 </div>
