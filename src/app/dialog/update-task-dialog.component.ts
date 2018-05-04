@@ -1,9 +1,9 @@
-import {Component, Inject} from "@angular/core";
+import {Component, Inject, Injectable} from "@angular/core";
 import {MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from "@angular/material";
 import {HttpService} from "../services/http-service";
 import {FormControl, Validators} from "@angular/forms";
 
-
+@Injectable()
 @Component({
   selector: 'update-task-dialog',
   templateUrl: 'update-task-dialog.component.html',
@@ -41,6 +41,12 @@ export class UpdateTaskDialog {
       return null;
     } else {
       return this.data.parentName[0].name;
+    }
+  }
+
+  dateCheck(begin: any,end: any): boolean {
+    if(begin != null && end != null) {
+      return begin.getTime() > end.getTime();
     }
   }
 

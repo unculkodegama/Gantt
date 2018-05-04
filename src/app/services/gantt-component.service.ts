@@ -614,7 +614,7 @@ export class GanttComponentService {
   }
 
   updatePercentTask(completed: string, percent: number, task: Task) {
-    let priorModel = new Task(task.id, task.parentId, task.name, task.start, task.end, task.description, percent, completed, task.family, task.colorPack);
+    let priorModel = new Task(task.id, task.parentId, task.name, task.start, task.end, task.description, percent, completed, task.family, task.colorPack, task.position);
     this.httpService.updateTask(priorModel).subscribe();
   }
 

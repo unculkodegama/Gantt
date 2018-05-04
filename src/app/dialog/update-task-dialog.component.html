@@ -7,10 +7,18 @@
   </mat-form-field>
 
   <mat-form-field *ngIf="task.family == 'child'" class="newTask">
-    <input matInput [min]="today" [(ngModel)]="data.dates" [satDatepicker]="resultPicker" placeholder="Dátumy" required>
-    <sat-datepicker-toggle matSuffix [for]="resultPicker"></sat-datepicker-toggle>
-    <sat-datepicker #resultPicker [rangeMode]="true"></sat-datepicker>
-    <mat-hint>Napr.: 12/1/2005 - 12/2/2005 => Mesiac/Den/Rok</mat-hint>
+    <input matInput [matDatepicker]="myDatepicker" [min]="today" [(ngModel)]="data.dates.begin" placeholder="Dátum od:" required>
+    <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+    <mat-datepicker #myDatepicker></mat-datepicker>
+    <mat-hint>Napr.: 12/1/2005 => Mesiac/Den/Rok</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="task.family == 'child'" class="newTask" style="margin-top: 10px">
+    <input matInput  [matDatepicker]="myDatepickeri" [min]="data.dates.begin" [(ngModel)]="data.dates.end"  placeholder="Dátum do:" required>
+    <mat-datepicker-toggle matSuffix [for]="myDatepickeri"></mat-datepicker-toggle>
+    <mat-datepicker #myDatepickeri></mat-datepicker>
+    <!-- <mat-hint>Napr.: 12/1/2005 => Mesiac/Den/Rok</mat-hint> -->
+    <mat-error *ngIf="dateCheck(data.dates.begin, data.dates.end)">Zadajte dátum po prvom dátume.</mat-error>
   </mat-form-field>
 
   <mat-form-field class="newTask">
@@ -38,7 +46,7 @@
   <button type="submit" *ngIf="task.family == 'parent'" [disabled]="(data.name.length == 0 || data.colour == null)"
           mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Upraviť
   </button>
-  <button type="submit" *ngIf="task.family == 'child'" [disabled]="(data.name.length == 0 || data.dates == null)"
+  <button type="submit" *ngIf="task.family == 'child'" [disabled]="(data.name.length == 0 ||  data.dates.begin == null || data.dates.end == null || dateCheck(data.dates.begin, data.dates.end))"
           mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Upraviť
   </button>
 

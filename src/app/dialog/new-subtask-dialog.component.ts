@@ -1,4 +1,4 @@
-import {Component, Inject} from "@angular/core";
+import {Component, Inject, Injectable} from "@angular/core";
 import {MatDialogRef, MAT_DIALOG_DATA} from "@angular/material";
 
 
@@ -9,6 +9,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from "@angular/material";
   providers: [],
 })
 
+@Injectable()
 export class NewSubTaskDialog {
 
   constructor(public dialogRef: MatDialogRef<NewSubTaskDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -19,5 +20,11 @@ export class NewSubTaskDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  dateCheck(begin: any,end: any): boolean {
+    if(begin != null && end != null) {
+      return begin.getTime() > end.getTime();
+    }
   }
 }

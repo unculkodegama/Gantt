@@ -268,7 +268,10 @@ export class GanttGraphComponent implements OnInit {
     dialogConfig.width = '600px';
     dialogConfig.data = {
       name: this.name,
-      dates: this.dates,
+      dates: {
+        begin: null,
+        end: null,
+      },
       description: this.description,
       task: task,
     };
