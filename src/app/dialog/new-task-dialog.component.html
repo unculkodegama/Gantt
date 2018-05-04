@@ -7,10 +7,18 @@
   </mat-form-field>
 
   <mat-form-field class="newTask">
-  <textarea matInput #descInput maxlength="150" [(ngModel)]="data.description" placeholder="Popis úlohy"
-            matTextareaAutosize matAutosizeMinRows="1"
-            matAutosizeMaxRows="6"></textarea>
-    <mat-hint align="end">{{descInput.value?.length || 0}} / 150</mat-hint>
+    <input matInput [matDatepicker]="myDatepicker" [min]="today" [(ngModel)]="data.dates.begin" placeholder="Dátum od:" required>
+    <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+    <mat-datepicker #myDatepicker></mat-datepicker>
+    <!-- <mat-hint>Napr.: 12/1/2005 => Mesiac/Den/Rok</mat-hint> -->
+  </mat-form-field>
+
+  <mat-form-field class="newTask" style="margin-top: 10px">
+    <input matInput [matDatepicker]="myDatepickeri" [min]="data.dates.begin" [(ngModel)]="data.dates.end"  placeholder="Dátum do:" required>
+    <mat-datepicker-toggle matSuffix [for]="myDatepickeri"></mat-datepicker-toggle>
+    <mat-datepicker #myDatepickeri></mat-datepicker>
+    <!-- <mat-hint>Napr.: 12/1/2005 => Mesiac/Den/Rok</mat-hint> -->
+    <mat-error *ngIf="dateCheck(data.dates.begin, data.dates.end)">Zadajte dátum po prvom dátume.</mat-error>
   </mat-form-field>
 
   <mat-form-field class="newTask">
@@ -23,9 +31,15 @@
     <mat-error *ngIf="colorControl.hasError('required')">Prosím, vyberte farbu.</mat-error>
   </mat-form-field>
 
+  <mat-form-field class="newTask">
+  <textarea matInput #descInput maxlength="150" [(ngModel)]="data.description" placeholder="Popis úlohy"
+            matTextareaAutosize matAutosizeMinRows="1"
+            matAutosizeMaxRows="6"></textarea>
+    <mat-hint align="end">{{descInput.value?.length || 0}} / 150</mat-hint>
+  </mat-form-field>
 </div>
 
 <div mat-dialog-actionsclass="button">
   <button mat-raised-button (click)="onNoClick()">Zrušiť</button>
-  <button type="submit" [disabled]="(data.name == null || data.colour == null)" mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Vytvoriť</button>
+  <button type="submit" [disabled]="(data.name == null || data.colour == null || data.dates.end == null || dateCheck(data.dates.begin, data.dates.end))" mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Vytvoriť</button>
 </div>

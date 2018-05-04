@@ -82,7 +82,7 @@ export class GanttComponentService {
       for (let i = 0; i < tasks.length; i++) {
         if (tasks[i].family == 'parent') {
 
-          parentTaskModel = new ParentTask(tasks[i].id, tasks[i].parentId, tasks[i].name, null, null, tasks[i].description, null, null, tasks[i].colorPack, tasks[i].position);
+          parentTaskModel = new ParentTask(tasks[i].id, tasks[i].parentId, tasks[i].name, tasks[i].start, tasks[i].end, tasks[i].description, null, null, tasks[i].colorPack, tasks[i].position);
 
           for (let i = 0; i < tasks.length; i++) {
 
@@ -225,16 +225,22 @@ export class GanttComponentService {
     }
   }
 
-  calculateParentDuration(tasks: any[]): string {
-    if (tasks.length != 0) {
+  calculateParentDuration(tasks: any): string {
+
+      let start: Date;
+      let end: Date;
 
       let oneHour = 60 * 60 * 1000;
       let today: Date = new Date();
       let hoursToComplete: number = 0;
 
-      let start = this.getStartDate(tasks);
-      let end = this.getEndDate(tasks)
-
+    if (tasks.tasks.length != 0) {
+      start = this.getStartDate(tasks.tasks);
+      end = this.getEndDate(tasks.tasks);
+    } else {
+      start = new Date(tasks.startOfTasks);
+      end = new Date(tasks.endOfTasks);
+    }
       let diffHours = (Math.abs((start.getTime() - end.getTime()) / oneHour));
       let duration = diffHours;
 
@@ -257,9 +263,7 @@ export class GanttComponentService {
       } else if (hoursToComplete >= 1) {
         return `${Math.round(hoursToComplete)} hodín`; // total duration in hours
       }
-    } else {
-      return '0';
-    }
+
   }
 
   calculateChildDuration(task: Task): string {

@@ -96,7 +96,7 @@ export class GanttGraphComponent implements OnInit {
   }
 
   onDrop() {
-      this.ganttComponentService.setPosition(this.parentTasks, this.tasks)
+    this.ganttComponentService.setPosition(this.parentTasks, this.tasks)
   }
 
   ngOnInit() {
@@ -241,6 +241,10 @@ export class GanttGraphComponent implements OnInit {
     dialogConfig.width = '600px';
     dialogConfig.data = {
       name: this.name,
+      dates: {
+        begin: null,
+        end: null,
+      },
       description: this.description,
       colour: this.colorPack,
     };
@@ -251,7 +255,7 @@ export class GanttGraphComponent implements OnInit {
       if (results1 != null) {
         if (results1.name != null) {
 
-          this.submitTask(results1.name, null, null, results1.description, null, 'parent', results1.colour.name,);
+          this.submitTask(results1.name, results1.dates.begin, results1.dates.end, results1.description, null, 'parent', results1.colour.name);
           setTimeout(() => {
             this.getTasks()
           }, 500);
@@ -299,11 +303,30 @@ export class GanttGraphComponent implements OnInit {
     })
   }
 
-  openUpdateTaskDialog(task: Task): void {
+  openUpdateTaskDialog(task: any): void {
+    let start: any;
+    let end: any;
+    let numberOfChild: number = 0;
     let some = task.parentId;
     let parentTask = this.tasks.filter(parent => {
       return parent.id == some && task.family == 'child'
     });
+
+    if (task.family == 'parent') {
+      start = task.startOfTasks;
+      end = task.endOfTasks;
+    } else {
+      start = task.start;
+      end = task.end;
+    }
+
+    if (task.family == 'parent' && task.tasks.length > 0) {
+      numberOfChild = task.tasks.length;
+    }
+
+    if (task.family == 'child') {
+      numberOfChild = 0;
+    }
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -312,14 +335,17 @@ export class GanttGraphComponent implements OnInit {
       name: task.name,
       id: task.id,
       dates: {
-        begin: task.start,
-        end: task.end
+        begin: start,
+        end: end,
       },
       description: task.description,
       parentName: parentTask,
       task: task,
       colour: task.colorPack,
+      number: numberOfChild,
     };
+
+    console.log(numberOfChild);
 
     let dialogRef = this.dialog.open(UpdateTaskDialog, dialogConfig);
     let dateEnd: Date;
@@ -336,9 +362,9 @@ export class GanttGraphComponent implements OnInit {
     dialogRef.afterClosed().subscribe(results => {
       if (results != null) {
         if (task.family == 'parent') {
-          if (results.name != task.name || results.colur != task.colorPack) {
+          if (results.name != task.name || results.colour != task.colorPack || results.dates.begin != task.startOfTasks || results.dates.end != task.endOfTasks) {
 
-            this.updateTask(task.id, task.parentId, results.name, task.start, task.end, results.description, task.percentCompleted, task.family, results.colour);
+            this.updateTask(task.id, task.parentId, results.name, results.dates.begin, results.dates.end, results.description, task.percentCompleted, task.family, results.colour, task.position);
 
             this.setChildrenColor(task, results.colour);
 

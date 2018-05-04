@@ -27,6 +27,12 @@ export class NewTaskDialog {
   constructor(public dialogRef: MatDialogRef<NewTaskDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
+  dateCheck(begin: any,end: any): boolean {
+    if(begin != null && end != null) {
+      return begin.getTime() > end.getTime();
+    }
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
