@@ -1,5 +1,4 @@
 import {NgModule} from "@angular/core";
-import {SatNativeDateModule, SatDatepickerModule} from 'saturn-datepicker';
 import {CdkTableModule} from '@angular/cdk/table';
 import {
   MatAutocompleteModule,
@@ -77,8 +76,6 @@ import {DragulaModule , DragulaService} from "ng2-dragula/ng2-dragula"
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    SatNativeDateModule,
-    SatDatepickerModule,
   ],
 })
 

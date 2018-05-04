@@ -11,7 +11,6 @@ import {DialogModule} from "./dialog.module";
 import {BrowserModule} from "@angular/platform-browser";
 import {NewTaskDialog} from "../dialog/new-task-dialog.component";
 import {UpdateTaskDialog} from "../dialog/update-task-dialog.component";
-import {MyDateRangePickerModule} from "mydaterangepicker";
 import {NewSubTaskDialog} from "../dialog/new-subtask-dialog.component";
 import {DragulaModule , DragulaService} from "ng2-dragula/ng2-dragula"
 
@@ -24,7 +23,6 @@ import {DragulaModule , DragulaService} from "ng2-dragula/ng2-dragula"
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    MyDateRangePickerModule,
     DragulaModule,
   ],
   exports: [
