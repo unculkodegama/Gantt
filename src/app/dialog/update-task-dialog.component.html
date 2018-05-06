@@ -8,14 +8,16 @@
 
 
   <mat-form-field *ngIf="data.number <= 0" class="newTask">
-    <input matInput [matDatepicker]="myDatepicker" [min]="today" [(ngModel)]="data.dates.begin" placeholder="Dátum od:" required>
+    <input matInput [matDatepicker]="myDatepicker" [min]="today" [(ngModel)]="data.dates.begin" placeholder="Dátum od:"
+           required>
     <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
     <mat-datepicker #myDatepicker></mat-datepicker>
     <!-- <mat-hint>Napr.: 12/1/2005 => Mesiac/Den/Rok</mat-hint> -->
   </mat-form-field>
 
   <mat-form-field *ngIf="data.number <= 0" class="newTask" style="margin-top: 10px">
-    <input matInput  [matDatepicker]="myDatepickeri" [min]="data.dates.begin" [(ngModel)]="data.dates.end"  placeholder="Dátum do:" required>
+    <input matInput [matDatepicker]="myDatepickeri" [min]="data.dates.begin" [(ngModel)]="data.dates.end"
+           placeholder="Dátum do:" required>
     <mat-datepicker-toggle matSuffix [for]="myDatepickeri"></mat-datepicker-toggle>
     <mat-datepicker #myDatepickeri></mat-datepicker>
     <!-- <mat-hint>Napr.: 12/1/2005 => Mesiac/Den/Rok</mat-hint> -->
@@ -44,10 +46,12 @@
 <div mat-dialog-actionsclass="button" style="margin-top: 10px">
   <button mat-raised-button (click)="onNoClick()">Zrušiť</button>
 
-  <button type="submit" *ngIf="task.family == 'parent'" [disabled]="(data.name.length == 0 || data.colour == null)"
+  <button type="submit" *ngIf="task.family == 'parent'"
+          [disabled]="(data.name.length == 0 || data.colour == null ||  data.dates.begin == null || data.dates.end == null || dateCheck(data.dates.begin, data.dates.end))"
           mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Upraviť
   </button>
-  <button type="submit" *ngIf="task.family == 'child'" [disabled]="(data.name.length == 0 ||  data.dates.begin == null || data.dates.end == null || dateCheck(data.dates.begin, data.dates.end))"
+  <button type="submit" *ngIf="task.family == 'child'"
+          [disabled]="(data.name.length == 0 ||  data.dates.begin == null || data.dates.end == null || dateCheck(data.dates.begin, data.dates.end))"
           mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Upraviť
   </button>
 

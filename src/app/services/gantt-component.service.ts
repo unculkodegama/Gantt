@@ -110,8 +110,8 @@ export class GanttComponentService {
     }
 
     for (let i = 0; i < parentTasks.length; i++) {
-      if(parentTasks[i].tasks.length > 1) {
-        parentTasks[i].tasks.sort((a,b):number => {
+      if (parentTasks[i].tasks.length > 1) {
+        parentTasks[i].tasks.sort((a, b): number => {
           if (a.start.getTime() < b.start.getTime()) return -1;
           if (a.start.getTime() > b.start.getTime()) return 1;
           return 0;
@@ -119,7 +119,7 @@ export class GanttComponentService {
       }
     }
 
-    parentTasks.sort((a,b):number => {
+    parentTasks.sort((a, b): number => {
       if (a.position < b.position) return -1;
       if (a.position > b.position) return 1;
       return 0;
@@ -227,12 +227,12 @@ export class GanttComponentService {
 
   calculateParentDuration(tasks: any): string {
 
-      let start: Date;
-      let end: Date;
+    let start: Date;
+    let end: Date;
 
-      let oneHour = 60 * 60 * 1000;
-      let today: Date = new Date();
-      let hoursToComplete: number = 0;
+    let oneHour = 60 * 60 * 1000;
+    let today: Date = new Date();
+    let hoursToComplete: number = 0;
 
     if (tasks.tasks.length != 0) {
       start = this.getStartDate(tasks.tasks);
@@ -241,28 +241,28 @@ export class GanttComponentService {
       start = new Date(tasks.startOfTasks);
       end = new Date(tasks.endOfTasks);
     }
-      let diffHours = (Math.abs((start.getTime() - end.getTime()) / oneHour));
-      let duration = diffHours;
+    let diffHours = (Math.abs((start.getTime() - end.getTime()) / oneHour));
+    let duration = diffHours;
 
-      if (today.getTime() >= start.getTime()) {
-        duration = Math.round(this.calculateDifferenceOfDays(today, end) * 24);
-      }
+    if (today.getTime() >= start.getTime()) {
+      duration = Math.round(this.calculateDifferenceOfDays(today, end) * 24);
+    }
 
-      if (today.getTime() >= end.getTime()) {
-        duration = 0;
-      }
+    if (today.getTime() >= end.getTime()) {
+      duration = 0;
+    }
 
-      hoursToComplete += duration;
+    hoursToComplete += duration;
 
-      if (hoursToComplete === 0) {
-        return '0';
-      }
+    if (hoursToComplete === 0) {
+      return '0';
+    }
 
-      if (hoursToComplete > 24) {
-        return `${Math.round((hoursToComplete) / 24)} dní`; // total duration in days
-      } else if (hoursToComplete >= 1) {
-        return `${Math.round(hoursToComplete)} hodín`; // total duration in hours
-      }
+    if (hoursToComplete > 24) {
+      return `${Math.round((hoursToComplete) / 24)} dní`; // total duration in days
+    } else if (hoursToComplete >= 1) {
+      return `${Math.round(hoursToComplete)} hodín`; // total duration in hours
+    }
 
   }
 
@@ -313,6 +313,7 @@ export class GanttComponentService {
   }
 
   calculateRange(start: Date, end: Date) {
+
     let range: any[] = [];
 
     let startDate: Date;
@@ -341,6 +342,41 @@ export class GanttComponentService {
     return result;
   }
 
+  getAllTasksStartDate(tasks: Task[]): Date {
+    let firstDate: Date;
+
+    if (tasks.length != 0) {
+      firstDate = new Date(tasks[0].start);
+      for (let i = 0; i < tasks.length; i++) {
+        tasks[i].start = new Date(tasks[i].start);
+        if (tasks[i].start < firstDate) {
+          firstDate = tasks[i].start;
+        }
+      }
+      return firstDate;
+    } else {
+      firstDate = new Date();
+      return firstDate;
+    }
+  }
+
+  getAllTasksEndDate(tasks: Task[]): Date {
+    let firstDate: Date;
+
+    if (tasks.length != 0) {
+      firstDate = new Date(tasks[0].end);
+      for (let i = 0; i < tasks.length; i++) {
+        tasks[i].end = new Date(tasks[i].end);
+        if (tasks[i].end > firstDate) {
+          firstDate = tasks[i].end;
+        }
+      }
+      return firstDate;
+    } else {
+      let secondDate = this.addDays(this.getStartDate(tasks), 30);
+      return secondDate;
+    }
+  }
 
   getStartDate(task: Task[]): Date {
     let firstDate: Date;

@@ -29,7 +29,7 @@
 
             <div class="grid_cell_add"
                  [ngStyle]="{ 'width': gridColumns[0].width + 'px' }">
-              <div id="show" (click)="setShowLevel(i)">
+              <div *ngIf="task.tasks.length > 0" id="show" (click)="setShowLevel(i)">
                 <mat-icon svgIcon="{{toggle[i] ? 'right': 'down'}}" aria-hidden="true"></mat-icon>
               </div>
             </div>

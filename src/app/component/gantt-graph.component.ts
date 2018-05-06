@@ -24,9 +24,6 @@ export class GanttGraphComponent implements OnInit {
   tasks: Task[];
   parentTasks: ParentTask[];
 
-  private start: Date;
-  private end: Date;
-
   private name: string;
   private dates: Date;
   private description: string;
@@ -101,9 +98,7 @@ export class GanttGraphComponent implements OnInit {
 
   ngOnInit() {
 
-    this.ganttComponentService.TIME_RANGE = this.ganttComponentService.calculateRange(this.ganttComponentService.getStartDate(this.tasks), this.ganttComponentService.getEndDate(this.tasks));
-    this.start = this.ganttComponentService.getStartDate(this.tasks);
-    this.end = this.ganttComponentService.getEndDate(this.tasks);
+    this.ganttComponentService.TIME_RANGE = this.ganttComponentService.calculateRange(this.ganttComponentService.getAllTasksStartDate(this.tasks), this.ganttComponentService.getAllTasksEndDate(this.tasks));
     this.containerWidth = this.calculateContainerWidth();
     this.containerHeight = this.calculateContainerHeight();
     this.graphContainerSizes = this.ganttComponentService.calculateGraphContainerDimensions();
@@ -113,9 +108,7 @@ export class GanttGraphComponent implements OnInit {
   }
 
   resetTimeRange() {
-    this.ganttComponentService.TIME_RANGE = this.ganttComponentService.calculateRange(this.ganttComponentService.getStartDate(this.tasks), this.ganttComponentService.getEndDate(this.tasks));
-    this.start = this.ganttComponentService.getStartDate(this.tasks);
-    this.end = this.ganttComponentService.getEndDate(this.tasks);
+    this.ganttComponentService.TIME_RANGE = this.ganttComponentService.calculateRange(this.ganttComponentService.getAllTasksStartDate(this.tasks), this.ganttComponentService.getAllTasksEndDate(this.tasks));
     this.containerWidth = this.calculateContainerWidth();
     this.containerHeight = this.calculateContainerHeight();
     this.graphContainerSizes = this.ganttComponentService.calculateGraphContainerDimensions();
@@ -344,8 +337,6 @@ export class GanttGraphComponent implements OnInit {
       colour: task.colorPack,
       number: numberOfChild,
     };
-
-    console.log(numberOfChild);
 
     let dialogRef = this.dialog.open(UpdateTaskDialog, dialogConfig);
     let dateEnd: Date;
