@@ -259,9 +259,9 @@ export class GanttComponentService {
     }
 
     if (hoursToComplete > 24) {
-      return `${Math.round((hoursToComplete) / 24)} dní`; // total duration in days
+      return `${Math.round((hoursToComplete) / 24)} dní`;
     } else if (hoursToComplete >= 1) {
-      return `${Math.round(hoursToComplete)} hodín`; // total duration in hours
+      return `${Math.round(hoursToComplete)} hodín`;
     }
 
   }
@@ -318,7 +318,6 @@ export class GanttComponentService {
 
     let startDate: Date;
     let endDate: Date;
-
     let today = new Date();
 
     if (today.getTime() <= start.getTime()) {

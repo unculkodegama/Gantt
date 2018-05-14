@@ -16,7 +16,7 @@
   </mat-form-field>
 
   <mat-form-field *ngIf="data.number <= 0" class="newTask" style="margin-top: 10px">
-    <input matInput [matDatepicker]="myDatepickeri" [min]="data.dates.begin" [(ngModel)]="data.dates.end"
+    <input matInput [matDatepicker]="myDatepickeri" [min]="data.dates.begin || today" [(ngModel)]="data.dates.end"
            placeholder="Dátum do:" required>
     <mat-datepicker-toggle matSuffix [for]="myDatepickeri"></mat-datepicker-toggle>
     <mat-datepicker #myDatepickeri></mat-datepicker>
@@ -35,7 +35,7 @@
     <mat-select placeholder="Vyberte farbu:" [(value)]="data.colour" [(ngModel)]="data.colour"
                 [formControl]="colorControl" required>
       <mat-option>--</mat-option>
-      <mat-option *ngFor="let color of colors" [value]="color.name">
+      <mat-option *ngFor="let color of colors" [value]="color.name" [style.backgroundColor]="color.hex">
         {{color.nameSk}}
       </mat-option>
     </mat-select>

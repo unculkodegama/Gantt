@@ -5,7 +5,6 @@ import { Task } from '../model/task';
 import {HttpClient} from "@angular/common/http";
 import {HttpHeaders} from "@angular/common/http";
 import 'rxjs/add/operator/map';
-import {ParentTask} from "../model/parentTask";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })

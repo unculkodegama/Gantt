@@ -17,17 +17,17 @@ export class NewTaskDialog {
   colorControl = new FormControl('', [Validators.required]);
 
   colors = [
-    {name: 'Cyan', nameSk: 'Tyrkysová'},
-    {name: 'Teal', nameSk: 'Modrozelená'},
-    {name: 'Brown', nameSk: 'Hnedá'},
-    {name: 'BlueGray', nameSk: 'Modrošedá'},
-    {name: 'LightBlue', nameSk: 'Modrá'},
+    {name: 'Cyan', nameSk: 'Tyrkysová', hex:'#00BCD4'},
+    {name: 'Teal', nameSk: 'Modrozelená', hex:'#009688'},
+    {name: 'Brown', nameSk: 'Hnedá', hex:'#A1887F'},
+    {name: 'BlueGray', nameSk: 'Modrošedá', hex:'#78909C'},
+    {name: 'LightBlue', nameSk: 'Modrá', hex:'#03A9F4'},
   ];
 
   constructor(public dialogRef: MatDialogRef<NewTaskDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
-  dateCheck(begin: any,end: any): boolean {
+  dateCheck(begin: Date,end: Date): boolean {
     if(begin != null && end != null) {
       return begin.getTime() > end.getTime();
     }

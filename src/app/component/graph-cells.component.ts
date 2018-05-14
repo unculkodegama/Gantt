@@ -15,9 +15,7 @@ export class GanttCellsComponent implements OnInit, OnChanges {
   @Input() zoomLevel: any;
 
   private iterable: any[] = [];
-
-  @ViewChild('bg') bg: ElementRef;
-
+  
   private cells: any[] = [];
 
   constructor(private ganttComponentService: GanttComponentService) {
