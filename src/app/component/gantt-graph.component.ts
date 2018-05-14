@@ -93,7 +93,7 @@ export class GanttGraphComponent implements OnInit {
   }
 
   onDrop() {
-    this.ganttComponentService.setPosition(this.parentTasks, this.tasks)
+    this.ganttComponentService.setPosition(this.parentTasks, this.tasks);
   }
 
   ngOnInit() {

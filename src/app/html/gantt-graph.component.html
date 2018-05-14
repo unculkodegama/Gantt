@@ -5,7 +5,7 @@
     </div>
 
     <div class="zoom_buttons">
-      <button aria-label="ZoomInOut" class="zoom" (click)="zoomTasks()">
+      <button id="zoom" aria-label="ZoomInOut" class="zoom" (click)="zoomTasks()">
         <mat-icon svgIcon="{{setZoomIcon()}}" aria-hidden="true"></mat-icon>
       </button>
     </div>
@@ -34,7 +34,7 @@
               </div>
             </div>
 
-            <div class="grid_cell" (click)="openUpdateTaskDialog(task)"
+            <div class="grid_cell" id="{{task.name}}" (click)="openUpdateTaskDialog(task)"
                  [ngStyle]="{ 'width': gridColumns[1].width + 'px' }">
               <div style="padding-left: 10px">{{task.name}}</div>
             </div>

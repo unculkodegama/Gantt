@@ -2,19 +2,19 @@
 <div mat-dialog-content>
 
   <mat-form-field class="newTask">
-    <input matInput #nameInput maxlength="25" [(ngModel)]="data.name" placeholder="Názov úlohy" required>
+    <input id="in1" matInput #nameInput maxlength="25" [(ngModel)]="data.name" placeholder="Názov úlohy" required>
     <mat-hint align="end">{{nameInput.value?.length || 0}} / 25</mat-hint>
   </mat-form-field>
 
   <mat-form-field class="newTask">
-    <input matInput [matDatepicker]="myDatepicker" pattern="/[0-9\/]/g" [min]="today" [(ngModel)]="data.dates.begin" placeholder="Dátum od:" required>
+    <input matInput id="in2" [matDatepicker]="myDatepicker" [min]="today" [(ngModel)]="data.dates.begin" placeholder="Dátum od:" required>
     <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
     <mat-datepicker #myDatepicker></mat-datepicker>
     <!-- <mat-hint>Napr.: 12/1/2005 => Mesiac/Den/Rok</mat-hint> -->
   </mat-form-field>
 
   <mat-form-field class="newTask" style="margin-top: 10px">
-    <input matInput [matDatepicker]="myDatepickeri" [min]="data.dates.begin || today" [(ngModel)]="data.dates.end"  placeholder="Dátum do:" required>
+    <input matInput id="in3" [matDatepicker]="myDatepickeri" [min]="data.dates.begin || today" [(ngModel)]="data.dates.end"  placeholder="Dátum do:" required>
     <mat-datepicker-toggle matSuffix [for]="myDatepickeri"></mat-datepicker-toggle>
     <mat-datepicker #myDatepickeri></mat-datepicker>
     <!-- <mat-hint>Napr.: 12/1/2005 => Mesiac/Den/Rok</mat-hint> -->
@@ -22,7 +22,7 @@
   </mat-form-field>
 
   <mat-form-field class="newTask">
-    <mat-select placeholder="Vyberte farbu:" [(ngModel)]="data.colour" [formControl]="colorControl" required>
+    <mat-select id="in4" placeholder="Vyberte farbu:" [(ngModel)]="data.colour" [formControl]="colorControl" required>
       <mat-option>--</mat-option>
       <mat-option *ngFor="let color of colors" [value]="color" [style.backgroundColor]="color.hex">
         {{color.nameSk}}
@@ -41,5 +41,5 @@
 
 <div mat-dialog-actionsclass="button">
   <button mat-raised-button (click)="onNoClick()">Zrušiť</button>
-  <button type="submit" [disabled]="(data.name == null || data.colour == null || data.dates.end == null || dateCheck(data.dates.begin, data.dates.end))" mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Vytvoriť</button>
+  <button id="in5" type="submit" [disabled]="(data.name == null || data.colour == null || data.dates.end == null || dateCheck(data.dates.begin, data.dates.end))" mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Vytvoriť</button>
 </div>
