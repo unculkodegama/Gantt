@@ -28,7 +28,3 @@ export class AppPage {
   }
 }
 
-export class Pokus {
-
-
-}
