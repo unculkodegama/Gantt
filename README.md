@@ -20,4 +20,4 @@ Test are running thanks to protractor.
 ! Please use Chrome for testning ! 
 
 1. Build the app ( see chapter Build)
-2. run `protractor protractor.conf.js`
+2. run `protractor protractor.conf.js` or better use `npm run ng e2e`
